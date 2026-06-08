@@ -1,5 +1,11 @@
 import { eq, and, gte, lte, desc, asc } from "drizzle-orm";
-import { products, scores, scoringRules, InsertProduct, InsertScore } from "../drizzle/schema";
+import {
+  products,
+  scores,
+  scoringRules,
+  InsertProduct,
+  InsertScore,
+} from "../drizzle/schema";
 import { getDb } from "./db";
 
 /**
@@ -23,7 +29,9 @@ export async function getOrCreateScoringRules() {
 /**
  * Update scoring rules
  */
-export async function updateScoringRules(updates: Partial<typeof scoringRules.$inferInsert>) {
+export async function updateScoringRules(
+  updates: Partial<typeof scoringRules.$inferInsert>
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -55,7 +63,12 @@ export async function upsertProduct(product: InsertProduct) {
       .update(products)
       .set(product)
       .where(eq(products.asin, product.asin));
-    return existing[0];
+    const result = await db
+      .select()
+      .from(products)
+      .where(eq(products.asin, product.asin))
+      .limit(1);
+    return result[0];
   } else {
     // Insert new
     await db.insert(products).values(product);
@@ -83,10 +96,7 @@ export async function upsertScore(score: InsertScore) {
 
   if (existing.length > 0) {
     // Update existing
-    await db
-      .update(scores)
-      .set(score)
-      .where(eq(scores.asin, score.asin));
+    await db.update(scores).set(score).where(eq(scores.asin, score.asin));
     return existing[0];
   } else {
     // Insert new
@@ -206,7 +216,9 @@ export async function listProductsWithScores(options?: {
     );
   } else if (sortBy === "reviewCount") {
     query = query.orderBy(
-      sortOrder === "desc" ? desc(products.reviewCount) : asc(products.reviewCount)
+      sortOrder === "desc"
+        ? desc(products.reviewCount)
+        : asc(products.reviewCount)
     );
   } else if (sortBy === "createdAt") {
     query = query.orderBy(
@@ -245,9 +257,9 @@ export async function getDashboardStats() {
   const gradeStats = await db
     .select()
     .from(scores)
-    .then((allScores) => {
+    .then(allScores => {
       const stats = { A: 0, B: 0, C: 0, D: 0 };
-      allScores.forEach((score) => {
+      allScores.forEach(score => {
         stats[score.grade as keyof typeof stats]++;
       });
       return stats;
@@ -277,7 +289,7 @@ export async function getDashboardStats() {
     "0-59": 0,
   };
 
-  allScores.forEach((score) => {
+  allScores.forEach(score => {
     const totalScore = Number(score.totalScore);
     if (totalScore >= 85) scoreDistribution["85-100"]++;
     else if (totalScore >= 70) scoreDistribution["70-84"]++;
@@ -287,7 +299,7 @@ export async function getDashboardStats() {
 
   return {
     totalProducts: totalProducts.length,
-    passedHardFilter: totalProducts.filter((p) => p.passedHardFilter).length,
+    passedHardFilter: totalProducts.filter(p => p.passedHardFilter).length,
     gradeStats,
     latestRecommended: [...latestRecommended, ...latestB].slice(0, 10),
     scoreDistribution,
@@ -304,7 +316,7 @@ export async function getCategoryStats() {
   const allProducts = await db.select().from(products);
   const categoryStats: Record<string, number> = {};
 
-  allProducts.forEach((product) => {
+  allProducts.forEach(product => {
     const category = product.category || "Unknown";
     categoryStats[category] = (categoryStats[category] || 0) + 1;
   });
