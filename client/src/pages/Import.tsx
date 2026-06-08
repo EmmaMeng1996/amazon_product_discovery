@@ -2,7 +2,13 @@ import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Upload, CheckCircle, AlertCircle } from "lucide-react";
+import {
+  Loader2,
+  Upload,
+  CheckCircle,
+  AlertCircle,
+  Download,
+} from "lucide-react";
 import Papa from "papaparse";
 
 export default function Import() {
@@ -12,6 +18,49 @@ export default function Import() {
   const [result, setResult] = useState<any>(null);
 
   const importMutation = trpc.product.importCsv.useMutation();
+
+  const handleDownloadTemplate = () => {
+    const template = [
+      [
+        "asin",
+        "title",
+        "category",
+        "price",
+        "rating",
+        "review_count",
+        "seller_count",
+        "weight",
+        "dimensions",
+        "product_url",
+        "keyword",
+      ],
+      [
+        "B0EXAMPLE1",
+        "Sample Product Title",
+        "Home & Kitchen",
+        "29.99",
+        "4.5",
+        "1234",
+        "3",
+        "0.8",
+        "10 x 20 x 30 cm",
+        "https://www.amazon.com/dp/B0EXAMPLE1",
+        "storage organizer",
+      ],
+    ];
+    const csv = Papa.unparse(template);
+    const blob = new Blob([`\uFEFF${csv}`], {
+      type: "text/csv;charset=utf-8;",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "amazon-product-import-template.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -48,7 +97,9 @@ export default function Import() {
             });
             setResult(response);
           } catch (error) {
-            alert(`导入失败: ${error instanceof Error ? error.message : "Unknown error"}`);
+            alert(
+              `导入失败: ${error instanceof Error ? error.message : "Unknown error"}`
+            );
           } finally {
             setImporting(false);
           }
@@ -59,7 +110,9 @@ export default function Import() {
         },
       });
     } catch (error) {
-      alert(`导入失败: ${error instanceof Error ? error.message : "Unknown error"}`);
+      alert(
+        `导入失败: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
       setImporting(false);
     }
   };
@@ -74,12 +127,25 @@ export default function Import() {
           <CardTitle>导入说明</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-700 mb-4">请准备包含以下字段的 CSV 文件：</p>
-          <div className="bg-gray-100 p-4 rounded font-mono text-sm">
-            <p>asin, title, category, price, rating, reviewCount, sellerCount, weight, dimensions, productUrl, keyword</p>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-gray-700 mb-4">
+                请准备包含以下字段的 CSV 文件：
+              </p>
+              <div className="bg-gray-100 p-4 rounded font-mono text-sm">
+                <p>
+                  asin, title, category, price, rating, review_count,
+                  seller_count, weight, dimensions, product_url, keyword
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleDownloadTemplate}>
+              <Download className="w-4 h-4 mr-2" />
+              下载 CSV 模板
+            </Button>
           </div>
           <p className="text-gray-600 text-sm mt-4">
-            系统将自动对导入的产品进行硬过滤和评分，生成推荐等级。
+            也支持卖家精灵字段：ASIN、商品标题、大类目、价格($)、评分、评分数、卖家数、商品重量、商品尺寸、商品详情页链接。
           </p>
         </CardContent>
       </Card>
@@ -100,10 +166,14 @@ export default function Import() {
               id="csv-input"
             />
             <label htmlFor="csv-input" className="cursor-pointer">
-              <span className="text-blue-600 hover:underline">点击选择 CSV 文件</span>
+              <span className="text-blue-600 hover:underline">
+                点击选择 CSV 文件
+              </span>
               <p className="text-gray-500 text-sm mt-2">或拖拽文件到此处</p>
             </label>
-            {file && <p className="text-green-600 mt-4">✓ 已选择: {file.name}</p>}
+            {file && (
+              <p className="text-green-600 mt-4">✓ 已选择: {file.name}</p>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -119,7 +189,7 @@ export default function Import() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    {Object.keys(preview[0]).map((key) => (
+                    {Object.keys(preview[0]).map(key => (
                       <th key={key} className="text-left py-2 px-4">
                         {key}
                       </th>
@@ -198,23 +268,27 @@ export default function Import() {
                       <tbody>
                         {result.results.map((item: any) => (
                           <tr key={item.asin} className="border-b">
-                            <td className="py-2 font-mono text-xs">{item.asin}</td>
+                            <td className="py-2 font-mono text-xs">
+                              {item.asin}
+                            </td>
                             <td className="py-2">
                               <span
                                 className={`inline-block px-2 py-1 rounded text-white text-xs font-bold ${
                                   item.grade === "A"
                                     ? "bg-green-600"
                                     : item.grade === "B"
-                                    ? "bg-blue-600"
-                                    : item.grade === "C"
-                                    ? "bg-amber-600"
-                                    : "bg-red-600"
+                                      ? "bg-blue-600"
+                                      : item.grade === "C"
+                                        ? "bg-amber-600"
+                                        : "bg-red-600"
                                 }`}
                               >
                                 {item.grade}
                               </span>
                             </td>
-                            <td className="py-2 text-right font-bold">{item.totalScore}</td>
+                            <td className="py-2 text-right font-bold">
+                              {item.totalScore}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -225,11 +299,15 @@ export default function Import() {
 
               {result.errors.length > 0 && (
                 <div className="mt-6">
-                  <h3 className="font-medium mb-3 text-red-600">导入失败的产品：</h3>
+                  <h3 className="font-medium mb-3 text-red-600">
+                    导入失败的产品：
+                  </h3>
                   <div className="bg-red-50 p-4 rounded max-h-96 overflow-y-auto">
                     {result.errors.map((error: any, idx: number) => (
                       <div key={idx} className="text-sm text-red-700 mb-2">
-                        <strong>{error.row}:</strong> {error.error}
+                        <strong>第 {error.row} 行</strong>
+                        {error.field && <>，字段 {error.field}</>}：
+                        {error.error}
                       </div>
                     ))}
                   </div>
@@ -240,7 +318,10 @@ export default function Import() {
                 <Button onClick={() => window.location.reload()}>
                   导入更多产品
                 </Button>
-                <Button variant="outline" onClick={() => window.location.href = "/dashboard"}>
+                <Button
+                  variant="outline"
+                  onClick={() => (window.location.href = "/dashboard")}
+                >
                   查看看板
                 </Button>
               </div>
