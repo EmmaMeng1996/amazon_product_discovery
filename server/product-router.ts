@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, router } from "./_core/trpc";
 import { scoreProduct } from "./scoring";
+import { CsvImportError, normalizeCsvRow } from "./csv-import";
 import {
   getOrCreateScoringRules,
   updateScoringRules,
@@ -14,23 +15,6 @@ import {
 import { products as productsTable } from "../drizzle/schema";
 import { getDb } from "./db";
 import { eq } from "drizzle-orm";
-
-/**
- * CSV import schema
- */
-const csvRowSchema = z.object({
-  asin: z.string(),
-  title: z.string(),
-  category: z.string().optional(),
-  price: z.coerce.number().optional(),
-  rating: z.coerce.number().optional(),
-  reviewCount: z.coerce.number().optional(),
-  sellerCount: z.coerce.number().optional(),
-  weight: z.coerce.number().optional(),
-  dimensions: z.string().optional(),
-  productUrl: z.string().optional(),
-  keyword: z.string().optional(),
-});
 
 export const productRouter = router({
   /**
@@ -47,21 +31,28 @@ export const productRouter = router({
       const results = [];
       const errors = [];
 
-      for (const row of input.data) {
+      for (let index = 0; index < input.data.length; index++) {
+        const row = input.data[index];
+        const rowNumber = index + 2;
         try {
-          // Validate and parse row
-          const parsed = csvRowSchema.parse(row);
+          const parsed = normalizeCsvRow(row, rowNumber);
 
           // Upsert product
           const productData = {
             asin: parsed.asin,
             title: parsed.title,
             category: parsed.category,
-            price: parsed.price ? parsed.price.toString() : undefined,
-            rating: parsed.rating ? parsed.rating.toString() : undefined,
+            price: parsed.price.toString(),
+            rating:
+              parsed.rating !== undefined
+                ? parsed.rating.toString()
+                : undefined,
             reviewCount: parsed.reviewCount,
             sellerCount: parsed.sellerCount,
-            weight: parsed.weight ? parsed.weight.toString() : undefined,
+            weight:
+              parsed.weight !== undefined
+                ? parsed.weight.toString()
+                : undefined,
             dimensions: parsed.dimensions,
             productUrl: parsed.productUrl,
             keyword: parsed.keyword,
@@ -92,9 +83,13 @@ export const productRouter = router({
             totalScore: scoreData.totalScore,
           });
         } catch (error) {
+          const csvError = error as Partial<CsvImportError>;
           errors.push({
-            row: row.asin || "unknown",
-            error: error instanceof Error ? error.message : "Unknown error",
+            row: csvError.row ?? rowNumber,
+            field: csvError.field ?? "row",
+            error:
+              csvError.error ??
+              (error instanceof Error ? error.message : "Unknown error"),
           });
         }
       }
