@@ -2,6 +2,7 @@ import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+<<<<<<< Updated upstream
 import {
   Loader2,
   Upload,
@@ -9,6 +10,10 @@ import {
   AlertCircle,
   Download,
 } from "lucide-react";
+=======
+import { Loader2, Upload, CheckCircle, AlertCircle } from "lucide-react";
+import { toast } from "sonner";
+>>>>>>> Stashed changes
 import Papa from "papaparse";
 
 export default function Import() {
@@ -16,8 +21,10 @@ export default function Import() {
   const [preview, setPreview] = useState<any[]>([]);
   const [importing, setImporting] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState<string>("");
 
-  const importMutation = trpc.product.importCsv.useMutation();
+  const importCsvMutation = trpc.product.importCsv.useMutation();
+  const importFileMutation = trpc.product.importFile.useMutation();
 
   const handleDownloadTemplate = () => {
     const template = [
@@ -68,51 +75,98 @@ export default function Import() {
 
     setFile(selectedFile);
     setResult(null);
+    setError("");
 
-    // Parse CSV preview
-    Papa.parse(selectedFile, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results: any) => {
-        setPreview(results.data.slice(0, 5));
-      },
-      error: (error: any) => {
-        alert(`CSV 解析错误: ${error.message}`);
-      },
-    });
+    const ext = selectedFile.name.toLowerCase().split(".").pop();
+
+    if (ext === "csv") {
+      // Parse CSV preview
+      Papa.parse(selectedFile, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results: any) => {
+          setPreview(results.data.slice(0, 5));
+        },
+        error: (error: any) => {
+          setError(`CSV 解析错误: ${error.message}`);
+        },
+      });
+    } else if (ext === "xlsx" || ext === "xls") {
+      setPreview([{ message: `Excel 文件已选择: ${selectedFile.name}` }]);
+    } else if (ext === "pdf") {
+      setPreview([{ message: `PDF 文件已选择: ${selectedFile.name}` }]);
+    } else {
+      setError("不支持的文件格式。请使用 CSV、Excel (.xlsx, .xls) 或 PDF。");
+    }
   };
 
   const handleImport = async () => {
     if (!file) return;
 
     setImporting(true);
+    setError("");
     try {
-      Papa.parse(file, {
-        header: true,
-        skipEmptyLines: true,
-        complete: async (results: any) => {
+      const ext = file.name.toLowerCase().split(".").pop();
+
+      if (ext === "csv") {
+        // Parse CSV and import
+        Papa.parse(file, {
+          header: true,
+          skipEmptyLines: true,
+          complete: async (results: any) => {
+            try {
+              const response = await importCsvMutation.mutateAsync({
+                data: results.data,
+              });
+              setResult(response);
+              toast.success(`成功导入 ${response.successCount} 个产品`);
+            } catch (error) {
+              setError(`导入失败: ${error instanceof Error ? error.message : "Unknown error"}`);
+              toast.error("导入失败");
+            } finally {
+              setImporting(false);
+            }
+          },
+          error: (error: any) => {
+            setError(`CSV 解析错误: ${error.message}`);
+            setImporting(false);
+          },
+        });
+      } else if (ext === "xlsx" || ext === "xls" || ext === "pdf") {
+        // Convert file to base64 and send to backend
+        const reader = new FileReader();
+        reader.onload = async (event) => {
           try {
-            const response = await importMutation.mutateAsync({
-              data: results.data,
+            const base64 = (event.target?.result as string).split(",")[1];
+            const response = await importFileMutation.mutateAsync({
+              filename: file.name,
+              fileData: base64,
             });
             setResult(response);
+            toast.success(`成功从 ${response.format} 导入 ${response.successCount} 个产品`);
           } catch (error) {
+<<<<<<< Updated upstream
             alert(
               `导入失败: ${error instanceof Error ? error.message : "Unknown error"}`
             );
+=======
+            setError(`导入失败: ${error instanceof Error ? error.message : "Unknown error"}`);
+            toast.error("导入失败");
+>>>>>>> Stashed changes
           } finally {
             setImporting(false);
           }
-        },
-        error: (error: any) => {
-          alert(`CSV 解析错误: ${error.message}`);
-          setImporting(false);
-        },
-      });
+        };
+        reader.readAsDataURL(file);
+      }
     } catch (error) {
+<<<<<<< Updated upstream
       alert(
         `导入失败: ${error instanceof Error ? error.message : "Unknown error"}`
       );
+=======
+      setError(`导入失败: ${error instanceof Error ? error.message : "Unknown error"}`);
+>>>>>>> Stashed changes
       setImporting(false);
     }
   };
@@ -127,6 +181,7 @@ export default function Import() {
           <CardTitle>导入说明</CardTitle>
         </CardHeader>
         <CardContent>
+<<<<<<< Updated upstream
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-gray-700 mb-4">
@@ -143,6 +198,23 @@ export default function Import() {
               <Download className="w-4 h-4 mr-2" />
               下载 CSV 模板
             </Button>
+=======
+          <p className="text-gray-700 mb-4">支持的文件格式：</p>
+          <ul className="text-sm text-gray-600 space-y-2 mb-4">
+            <li>✓ <strong>CSV</strong> - 英文或中文列名均可</li>
+            <li>✓ <strong>Excel</strong> (.xlsx, .xls) - 支持中文列名</li>
+            <li>✓ <strong>PDF</strong> - 表格格式识别</li>
+          </ul>
+          <div className="bg-gray-100 p-4 rounded font-mono text-xs space-y-2">
+            <div>
+              <p className="mb-2 font-bold">必需字段（英文）：</p>
+              <p className="text-gray-700">asin, title, category, price, rating, reviewCount, sellerCount, weight, dimensions, productUrl, keyword</p>
+            </div>
+            <div>
+              <p className="mb-2 font-bold">必需字段（中文）：</p>
+              <p className="text-gray-700">ASIN, 商品标题, 小类目, 价格($), 评分, 月新增评分数, 卖家数, 商品重量（单位换算）, 商品尺寸（单位换算）, 商品详情页链接, AC关键词</p>
+            </div>
+>>>>>>> Stashed changes
           </div>
           <p className="text-gray-600 text-sm mt-4">
             也支持卖家精灵字段：ASIN、商品标题、大类目、价格($)、评分、评分数、卖家数、商品重量、商品尺寸、商品详情页链接。
@@ -160,11 +232,12 @@ export default function Import() {
             <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <input
               type="file"
-              accept=".csv"
+              accept=".csv,.xlsx,.xls,.pdf"
               onChange={handleFileSelect}
               className="hidden"
-              id="csv-input"
+              id="file-input"
             />
+<<<<<<< Updated upstream
             <label htmlFor="csv-input" className="cursor-pointer">
               <span className="text-blue-600 hover:underline">
                 点击选择 CSV 文件
@@ -173,6 +246,25 @@ export default function Import() {
             </label>
             {file && (
               <p className="text-green-600 mt-4">✓ 已选择: {file.name}</p>
+=======
+            <label htmlFor="file-input" className="cursor-pointer">
+              <span className="text-blue-600 hover:underline">点击选择文件</span>
+              <p className="text-gray-500 text-sm mt-2">支持 CSV、Excel (.xlsx, .xls)、PDF</p>
+            </label>
+            {file && (
+              <div className="mt-4 text-sm">
+                <p className="text-green-600">✓ 已选择: <span className="font-bold">{file.name}</span></p>
+                <p className="text-gray-500 text-xs mt-1">文件大小: {(file.size / 1024).toFixed(2)} KB</p>
+              </div>
+            )}
+            {error && (
+              <div className="mt-4 bg-red-50 border border-red-200 rounded p-3">
+                <p className="text-red-700 text-sm flex items-center gap-2 justify-center">
+                  <AlertCircle className="w-4 h-4" />
+                  {error}
+                </p>
+              </div>
+>>>>>>> Stashed changes
             )}
           </div>
         </CardContent>
@@ -182,9 +274,10 @@ export default function Import() {
       {preview.length > 0 && (
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>预览（前 5 行）</CardTitle>
+            <CardTitle>数据预览</CardTitle>
           </CardHeader>
           <CardContent>
+<<<<<<< Updated upstream
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -203,12 +296,39 @@ export default function Import() {
                         <td key={i} className="py-2 px-4 truncate max-w-xs">
                           {String(value)}
                         </td>
+=======
+            {preview[0]?.message ? (
+              <div className="text-center py-4">
+                <p className="text-gray-600">{preview[0].message}</p>
+                <p className="text-gray-500 text-sm mt-2">点击"开始导入"按钮进行导入</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b bg-gray-100">
+                      {Object.keys(preview[0] || {}).map((key) => (
+                        <th key={key} className="text-left py-2 px-4 font-medium">
+                          {key}
+                        </th>
+>>>>>>> Stashed changes
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {preview.map((row, idx) => (
+                      <tr key={idx} className="border-b hover:bg-gray-50">
+                        {Object.values(row).map((value, i) => (
+                          <td key={i} className="py-2 px-4 truncate max-w-xs text-xs">
+                            {String(value).substring(0, 100)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </CardContent>
         </Card>
       )}
@@ -238,24 +358,37 @@ export default function Import() {
       {result && (
         <Card>
           <CardHeader>
-            <CardTitle>导入结果</CardTitle>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-6 h-6 text-green-600" />
+              <CardTitle>导入完成</CardTitle>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-600" />
-                <span>成功导入: {result.imported} 条产品</span>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-green-50 p-4 rounded">
+                  <p className="text-sm text-gray-600">成功导入</p>
+                  <p className="text-2xl font-bold text-green-600">{result.successCount}</p>
+                </div>
+                <div className="bg-blue-50 p-4 rounded">
+                  <p className="text-sm text-gray-600">总处理</p>
+                  <p className="text-2xl font-bold text-blue-600">{result.totalProcessed}</p>
+                </div>
+                <div className="bg-red-50 p-4 rounded">
+                  <p className="text-sm text-gray-600">错误</p>
+                  <p className="text-2xl font-bold text-red-600">{result.errorCount}</p>
+                </div>
               </div>
-              {result.failed > 0 && (
-                <div className="flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5 text-red-600" />
-                  <span>导入失败: {result.failed} 条产品</span>
+
+              {result.format && (
+                <div className="bg-gray-50 p-3 rounded text-sm">
+                  <p className="text-gray-600">文件格式: <span className="font-bold">{result.format}</span></p>
                 </div>
               )}
 
-              {result.results.length > 0 && (
+              {result.results && result.results.length > 0 && (
                 <div className="mt-6">
-                  <h3 className="font-medium mb-3">成功导入的产品：</h3>
+                  <h3 className="font-medium mb-3">成功导入的产品（前 10 条）：</h3>
                   <div className="bg-gray-50 p-4 rounded max-h-96 overflow-y-auto">
                     <table className="w-full text-sm">
                       <thead>
@@ -266,7 +399,7 @@ export default function Import() {
                         </tr>
                       </thead>
                       <tbody>
-                        {result.results.map((item: any) => (
+                        {result.results.slice(0, 10).map((item: any) => (
                           <tr key={item.asin} className="border-b">
                             <td className="py-2 font-mono text-xs">
                               {item.asin}
@@ -286,9 +419,13 @@ export default function Import() {
                                 {item.grade}
                               </span>
                             </td>
+<<<<<<< Updated upstream
                             <td className="py-2 text-right font-bold">
                               {item.totalScore}
                             </td>
+=======
+                            <td className="py-2 text-right font-bold">{item.totalScore || "N/A"}</td>
+>>>>>>> Stashed changes
                           </tr>
                         ))}
                       </tbody>
@@ -297,8 +434,9 @@ export default function Import() {
                 </div>
               )}
 
-              {result.errors.length > 0 && (
+              {result.errors && result.errors.length > 0 && (
                 <div className="mt-6">
+<<<<<<< Updated upstream
                   <h3 className="font-medium mb-3 text-red-600">
                     导入失败的产品：
                   </h3>
@@ -308,15 +446,32 @@ export default function Import() {
                         <strong>第 {error.row} 行</strong>
                         {error.field && <>，字段 {error.field}</>}：
                         {error.error}
+=======
+                  <h3 className="font-medium mb-3 text-red-600">导入错误：</h3>
+                  <div className="bg-red-50 p-4 rounded max-h-96 overflow-y-auto">
+                    {result.errors.slice(0, 10).map((error: string, idx: number) => (
+                      <div key={idx} className="text-xs text-red-700 mb-2">
+                        • {error}
+>>>>>>> Stashed changes
                       </div>
                     ))}
+                    {result.errors.length > 10 && (
+                      <div className="text-xs text-red-700 mt-2">
+                        ... 还有 {result.errors.length - 10} 个错误
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
               <div className="mt-6 flex gap-2">
-                <Button onClick={() => window.location.reload()}>
-                  导入更多产品
+                <Button onClick={() => {
+                  setFile(null);
+                  setPreview([]);
+                  setResult(null);
+                  setError("");
+                }}>
+                  导入新文件
                 </Button>
                 <Button
                   variant="outline"

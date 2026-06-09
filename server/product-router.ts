@@ -15,8 +15,98 @@ import {
 import { products as productsTable } from "../drizzle/schema";
 import { getDb } from "./db";
 import { eq } from "drizzle-orm";
+import { parseFile, validateProducts } from "./file-parser";
+
+/**
+ * Import file schema - supports base64 encoded files
+ */
+const importFileSchema = z.object({
+  filename: z.string(),
+  fileData: z.string(), // base64 encoded
+});
 
 export const productRouter = router({
+  /**
+   * Import products from Excel, PDF, or CSV file
+   */
+  importFile: publicProcedure
+    .input(importFileSchema)
+    .mutation(async ({ input }) => {
+      const rules = await getOrCreateScoringRules();
+      const results = [];
+      const errors = [];
+
+      try {
+        // Decode base64 file data
+        const buffer = Buffer.from(input.fileData, "base64");
+
+        // Parse file based on extension
+        const { products, format } = await parseFile(buffer, input.filename);
+
+        // Validate products
+        const { valid, errors: validationErrors } = validateProducts(products);
+        errors.push(...validationErrors);
+
+        // Import valid products
+        for (const product of valid) {
+          try {
+            // Upsert product
+            const productData = {
+              asin: product.asin,
+              title: product.title,
+              category: product.category,
+              price: product.price,
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+              sellerCount: product.sellerCount,
+              weight: product.weight,
+              dimensions: product.dimensions,
+              productUrl: product.productUrl,
+              keyword: product.keyword,
+            } as any;
+            const dbProduct = await upsertProduct(productData);
+
+            // Score product
+            const scoreData = await scoreProduct(dbProduct, rules);
+
+            // Update product hard filter status
+            const db = await getDb();
+            if (db) {
+              await db
+                .update(productsTable)
+                .set({
+                  passedHardFilter: scoreData.totalScore === "0" ? 0 : 1,
+                })
+                .where(eq(productsTable.asin, product.asin));
+            }
+
+            // Upsert score
+            await upsertScore(scoreData);
+
+            results.push({
+              asin: product.asin,
+              status: "success",
+              grade: scoreData.grade,
+            });
+          } catch (error) {
+            errors.push(`Failed to import ${product.asin}: ${error instanceof Error ? error.message : "Unknown error"}`);
+          }
+        }
+
+        return {
+          success: true,
+          format,
+          totalProcessed: products.length,
+          successCount: results.length,
+          errorCount: errors.length,
+          results,
+          errors,
+        };
+      } catch (error) {
+        throw new Error(`File import failed: ${error instanceof Error ? error.message : "Unknown error"}`);
+      }
+    }),
+
   /**
    * Import products from CSV
    */
@@ -95,10 +185,13 @@ export const productRouter = router({
       }
 
       return {
-        imported: results.length,
-        failed: errors.length,
+        success: true,
+        format: "CSV",
+        totalProcessed: input.data.length,
+        successCount: results.length,
+        errorCount: errors.length,
         results,
-        errors,
+        errors: errors.map((e: any) => `${e.row}: ${e.error}`),
       };
     }),
 
