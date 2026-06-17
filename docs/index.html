@@ -1,1 +1,714 @@
-<script>document.write(atob('PCFkb2N0eXBlIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD11dGYtOD48dGl0bGU+YW1hem9uIGRpc2NvdmVyPC90aXRsZT48c3R5bGU+Ym9keXtmb250LWZhbWlseTpBcmlhbDttYXJnaW46MjBweDtiYWNrZ3JvdW5kOiNmNmY3ZmJ9YnV0dG9ue21hcmdpbjo0cHg7cGFkZGluZzo4cHh9dGFibGV7d2lkdGg6MTAwJTtiYWNrZ3JvdW5kOndoaXRlO2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZX10ZCx0aHtib3JkZXI6MXB4IHNvbGlkICNkZGQ7cGFkZGluZzo4cHh9LkF7Y29sb3I6Z3JlZW59LkJ7Y29sb3I6Ymx1ZX0uQ3tjb2xvcjojYjcwfS5Ee2NvbG9yOiM3Nzd9PC9zdHlsZT48L2hlYWQ+PGJvZHk+PGgxPmFtYXpvbiBkaXNjb3ZlcjwvaDE+PHA+QTogc2NvcmU+PTg1LCBtb250aGx5IHNhbGVzPjYwMCwgY2F0ZWdvcnkgcmFuazw9MTAwMDAuIEI6IHNjb3JlPj03MCwgbW9udGhseSBzYWxlcz4zMDAsIGNhdGVnb3J5IHJhbmsgMTAwMDEtMjAwMDAuIEM6IHNjb3JlPj02MCBhbmQgc2FsZXM+MTAwLjwvcD48aW5wdXQgaWQ9ZiB0eXBlPWZpbGUgYWNjZXB0PS5jc3Y+PGJ1dHRvbiBvbmNsaWNrPWRlbW8oKT5TYW1wbGU8L2J1dHRvbj48ZGl2IGlkPW8+PC9kaXY+PHNjcmlwdD5sZXQgcD1bWydCMFBFVDAwMDMnLCdQZXQgU2xvdyBGZWVkZXIgTGljayBNYXQnLCdQZXQnLDIxLjk5LDQuMSwyNzAsNywzMjAwLDk4MDAsLjIyXSxbJ0IwSE9NRTAwMicsJ0hvbWUgRHJhd2VyIE9yZ2FuaXplcicsJ0hvbWUnLDM5Ljk5LDQuNCw0MjAsOSwxOTAwLDE1MDAwLC43OF0sWydCME9GRjAwNCcsJ09mZmljZSBDYWJsZSBDbGlwcycsJ09mZmljZScsMTguOTksNC42LDk1LDQsMTEwMCw1MjAwMCwuMTJdXTtmdW5jdGlvbiBuKHgpe3JldHVybiBwYXJzZUZsb2F0KFN0cmluZyh4fHwwKS5yZXBsYWNlKC9bXjAtOS5dL2csJycpKXx8MH1mdW5jdGlvbiBzYyh4KXtsZXQgcz0oeFszXT49MjAmJnhbM108PTgwPzI1OjgpKyh4WzVdPj01MCYmeFs1XTw9ODAwPzI1OjgpKyh4WzZdPD0xMD8xNTo1KSsoeFs5XTw9MT8xNTozKSsoeFs0XTw0LjU/MTA6NiksZz0nRCcsdz0nRDogbm90IHJlY29tbWVuZGVkJztpZihzPj04NSYmeFs3XT42MDAmJnhbOF08PTEwMDAwKXtnPSdBJzt3PSdBIGJlY2F1c2Ugc2NvcmUsIHNhbGVzIGFuZCByYW5rIGFsbCBwYXNzJ31lbHNlIGlmKHM+PTcwJiZ4WzddPjMwMCYmeFs4XT49MTAwMDEmJnhbOF08PTIwMDAwKXtnPSdCJzt3PSdCIGJlY2F1c2Ugc2FsZXMgcGFzcyBhbmQgcmFuayBpcyAxMDAwMS0yMDAwMCd9ZWxzZSBpZihzPj02MCYmeFs3XT4xMDApe2c9J0MnO3c9J0MgYmVjYXVzZSBpdCBtaXNzZXMgQS9CIHJhbmsgZ2F0ZSd9cmV0dXJuW2cscyx3XX1mdW5jdGlvbiBzaG93KCl7by5pbm5lckhUTUw9Jzx0YWJsZT48dHI+PHRoPkdyYWRlPC90aD48dGg+UHJvZHVjdDwvdGg+PHRoPkFTSU48L3RoPjx0aD5TYWxlczwvdGg+PHRoPlJhbms8L3RoPjx0aD5TY29yZTwvdGg+PHRoPkFJIHJlYXNvbjwvdGg+PC90cj4nK3AubWFwKHg9PntsZXQgcj1zYyh4KTtyZXR1cm4gJzx0cj48dGQgY2xhc3M9JytyWzBdKyc+JytyWzBdKyc8L3RkPjx0ZD4nK3hbMV0rJzwvdGQ+PHRkPjxhIHRhcmdldD1fYmxhbmsgaHJlZj1odHRwczovL3d3dy5hbWF6b24uY29tL2RwLycreFswXSsnPicreFswXSsnPC9hPjwvdGQ+PHRkPicreFs3XSsnPC90ZD48dGQ+Jyt4WzhdKyc8L3RkPjx0ZD4nK3JbMV0rJzwvdGQ+PHRkPicrclsyXSsnPC90ZD48L3RyPid9KS5qb2luKCcnKSsnPC90YWJsZT4nfWZ1bmN0aW9uIGRlbW8oKXtzaG93KCl9Zi5vbmNoYW5nZT1lPT57bGV0IHI9bmV3IEZpbGVSZWFkZXI7ci5vbmxvYWQ9KCk9PntsZXQgYT1yLnJlc3VsdC50cmltKCkuc3BsaXQoJwonKS5zbGljZSgxKTtwPWEubWFwKGw9Pmwuc3BsaXQoJywnKSkubWFwKHg9Plt4WzBdLHhbMV0seFsyXSxuKHhbM10pLG4oeFs0XSksbih4WzVdKSxuKHhbNl0pLG4oeFs3XSksbih4WzhdKSxuKHhbOV0pXSk7c2hvdygpfTtyLnJlYWRBc1RleHQoZS50YXJnZXQuZmlsZXNbMF0pfTtzaG93KCk8L3NjcmlwdD48L2JvZHk+PC9odG1sPg=='))</script>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon Product Discovery Engine</title>
+    <script src="./vendor/xlsx.full.min.js"></script>
+    <style>
+      :root {
+        --bg: #f6f7fb;
+        --panel: #fff;
+        --text: #17202a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --dark: #0f172a;
+        --green: #047857;
+        --blue: #1d4ed8;
+        --amber: #b45309;
+        --red: #be123c;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+      aside { background: #fff; border-right: 1px solid var(--line); padding: 24px 18px; position: sticky; top: 0; height: 100vh; }
+      .brand { font-weight: 800; font-size: 18px; }
+      .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+      nav { margin-top: 28px; display: grid; gap: 8px; }
+      nav button {
+        border: 0; background: transparent; text-align: left; padding: 10px 12px; border-radius: 6px;
+        cursor: pointer; color: #334155; font-weight: 650;
+      }
+      nav button.active, nav button:hover { background: #eef2f7; color: #0f172a; }
+      main { padding: 28px; max-width: 1280px; width: 100%; }
+      h1 { margin: 0; font-size: 26px; }
+      h2 { margin: 0; font-size: 17px; }
+      p { color: var(--muted); }
+      .grid { display: grid; gap: 16px; }
+      .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 22px; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+      .pad { padding: 18px; }
+      .stat .label { color: var(--muted); font-size: 13px; }
+      .stat .value { font-size: 32px; font-weight: 800; margin-top: 8px; }
+      .section { margin-top: 22px; }
+      .bar { border-bottom: 1px solid var(--line); padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th { text-align: left; color: var(--muted); background: #f8fafc; font-weight: 700; }
+      th, td { padding: 12px 14px; border-bottom: 1px solid #eef2f7; vertical-align: top; }
+      tr:hover td { background: #fafafa; }
+      .grade { display: inline-flex; min-width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 6px; font-weight: 800; }
+      .A { background: #d1fae5; color: var(--green); }
+      .B { background: #dbeafe; color: var(--blue); }
+      .C { background: #fef3c7; color: var(--amber); }
+      .D { background: #f1f5f9; color: #475569; }
+      .btn { border: 0; background: var(--dark); color: #fff; border-radius: 6px; padding: 10px 14px; font-weight: 750; cursor: pointer; }
+      .btn.secondary { background: #fff; color: #0f172a; border: 1px solid var(--line); }
+      .btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+      input, select, textarea {
+        width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 11px; background: #fff;
+      }
+      .filters { grid-template-columns: 1.6fr repeat(4, 1fr); }
+      .drop {
+        border: 2px dashed #cbd5e1; border-radius: 8px; background: #fff; padding: 38px 18px; text-align: center;
+      }
+      .map-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .muted { color: var(--muted); }
+      .status { margin-top: 12px; background: #f8fafc; border: 1px solid var(--line); padding: 12px; border-radius: 6px; color: #334155; }
+      .split { display: grid; grid-template-columns: 1fr 380px; gap: 18px; }
+      pre { white-space: pre-wrap; overflow: auto; max-height: 420px; font-size: 12px; color: #334155; }
+      .hidden { display: none; }
+      .banner { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+      .score-row { margin-top: 14px; }
+      .score-head { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+      .track { height: 8px; border-radius: 99px; background: #e2e8f0; overflow: hidden; }
+      .fill { height: 100%; background: #0f172a; }
+      .grade-board { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+      .grade-card { cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+      .grade-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15, 23, 42, .08); }
+      .grade-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .grade-count { font-size: 34px; font-weight: 850; margin-top: 10px; }
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .chip { border: 1px solid var(--line); border-radius: 999px; padding: 6px 9px; background: #fff; color: #475569; font-size: 12px; }
+      .analysis { background: #f8fafc; border: 1px solid var(--line); border-radius: 8px; padding: 12px; color: #334155; line-height: 1.65; }
+      .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .asin-link { color: #2563eb; font-weight: 750; text-decoration: none; }
+      .asin-link:hover { text-decoration: underline; }
+      .name-tags { display: grid; gap: 4px; margin-top: 6px; color: #475569; font-size: 12px; }
+      .name-tags b { color: #334155; }
+      .delist-risk { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; padding: 4px 8px; font-size: 12px; font-weight: 800; }
+      tr.risk-row td { background: #fff1f2; }
+      tr.risk-row:hover td { background: #ffe4e6; }
+      @media (max-width: 860px) {
+        .layout { grid-template-columns: 1fr; }
+        aside { position: static; height: auto; }
+        .stats, .filters, .map-grid, .split, .grade-board, .category-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <div class="brand">Amazon Discovery</div>
+        <div class="sub">精品卖家选品引擎</div>
+        <nav>
+          <button data-view="dashboard" class="active">Dashboard</button>
+          <button data-view="import">产品导入</button>
+          <button data-view="products">产品列表</button>
+          <button data-view="settings">评分规则</button>
+        </nav>
+      </aside>
+      <main id="app"></main>
+    </div>
+
+    <script>
+      const fields = {
+        asin: "ASIN", title: "标题", category: "类目", price: "价格", rating: "评分",
+        review_count: "评论数", seller_count: "卖家数", monthly_sales: "月销量",
+        monthly_revenue: "月销售额", sales_rank: "BSR", weight: "重量",
+        dimensions: "尺寸", product_url: "商品链接", keyword: "关键词"
+      };
+      const aliases = {
+        asin: ["ASIN", "asin", "商品ASIN", "父ASIN", "子ASIN"],
+        title: ["商品标题", "标题", "产品标题", "Title", "Product Title"],
+        category: ["类目", "商品类目", "分类", "Category", "类目路径", "大类目", "小类目"],
+        price: ["价格", "售价", "Buy Box价格", "当前价格", "Price", "价格($)", "Buy Box Price"],
+        rating: ["评分", "星级", "Rating", "Reviews Rating"],
+        review_count: ["评论数", "评论数量", "Review Count", "Reviews", "Ratings", "评分数"],
+        seller_count: ["卖家数", "跟卖数", "Offer数量", "Offers", "Seller Count"],
+        monthly_sales: ["月销量", "预估月销量", "月销售量", "Monthly Sales"],
+        monthly_revenue: ["月销售额", "预估月销售额", "Monthly Revenue", "月销售额($)"],
+        sales_rank: ["BSR", "大类排名", "小类排名", "销售排名", "Sales Rank", "大类BSR", "小类BSR"],
+        weight: ["重量", "商品重量", "商品重量（单位换算）", "包裹重量", "包装重量", "包装重量（单位换算）", "Weight"],
+        dimensions: ["尺寸", "商品尺寸", "商品尺寸（单位换算）", "包装尺寸", "包装尺寸（单位换算）", "Dimensions"],
+        product_url: ["商品链接", "链接", "URL", "Product URL", "商品详情页链接"],
+        keyword: ["关键词", "搜索词", "Keyword", "AC关键词", "标签"]
+      };
+      const defaultSettings = {
+        minPrice: 20, maxPrice: 80, minReviewCount: 50, maxReviewCount: 800,
+        minRating: 4.2, maxWeightKg: 1, competitionWeight: 25, profitWeight: 25,
+        differentiationWeight: 30, developmentWeight: 20,
+        dangerousKeywords: ["液体", "粉末", "食品", "药品", "强磁", "危险品", "高监管", "认证", "医疗", "liquid", "powder", "food", "medicine", "magnetic", "hazard", "battery"]
+      };
+      const samples = [
+        ["B0HEAL001","情绪疗愈压力球套装 Sensory Stress Relief Balls","Wellness / 情绪疗愈",24.99,4.3,186,5,2800,69972,18500,0.32,"12 x 8 x 6 cm","https://www.amazon.com/dp/B0HEAL001","stress relief sensory toy"],
+        ["B0HOME002","可折叠抽屉收纳盒 Home Drawer Organizer","Home & Kitchen / 家居收纳",39.99,4.4,420,9,1900,75981,23000,0.78,"28 x 18 x 9 cm","https://www.amazon.com/dp/B0HOME002","drawer organizer"],
+        ["B0PET0003","宠物慢食舔食垫 Pet Slow Feeder Lick Mat","Pet Supplies / 宠物用品",21.99,4.1,270,7,3200,70368,11800,0.22,"20 x 20 x 2 cm","https://www.amazon.com/dp/B0PET0003","dog lick mat"],
+        ["B0OFF004","桌面理线夹套装 Office Cable Clips","Office Products / 办公用品",18.99,4.6,95,4,1100,20889,52000,0.12,"9 x 6 x 2 cm","https://www.amazon.com/dp/B0OFF004","cable clips desk"],
+        ["B0RISK005","强磁液体清洁剂套装 Oversize Magnetic Liquid Cleaner","危险品 / 液体 / 强磁 / Oversize",89.99,3.9,2300,32,5000,449950,2000,3.4,"Oversize 60 x 40 x 35 cm","https://www.amazon.com/dp/B0RISK005","liquid magnetic cleaner"]
+      ].map(row => makeProduct({
+        asin: row[0], title: row[1], category: row[2], price: row[3], rating: row[4],
+        review_count: row[5], seller_count: row[6], monthly_sales: row[7],
+        monthly_revenue: row[8], sales_rank: row[9], weight: row[10],
+        dimensions: row[11], product_url: row[12], keyword: row[13], raw_data: { source: "sample" }
+      }, "sample"));
+
+      let state = {
+        view: "dashboard", products: [], batches: [], settings: loadSettings(), gradeFocus: null,
+        parsed: null, mapping: {}, status: "", selectedProduct: null, filters: {}
+      };
+
+      function id() { return crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()); }
+      function norm(s) { return String(s || "").replace(/^\uFEFF/, "").trim().toLowerCase().replace(/[\s_\-()（）$￥:：/\\]+/g, ""); }
+      function num(v) {
+        const text = String(v ?? "").trim().replace(/,/g, "").replace(/\$/g, "").replace(/￥/g, "").replace(/美元/g, "").replace(/排名/g, "").replace(/[^\d.\-]/g, "");
+        const n = Number(text);
+        return text && Number.isFinite(n) ? n : null;
+      }
+      function kg(v) {
+        const text = String(v ?? "").toLowerCase();
+        const n = num(text);
+        if (n == null) return null;
+        if (text.includes("lb") || text.includes("磅")) return Math.round(n * 0.4536 * 1000) / 1000;
+        if (text.includes("g") && !text.includes("kg")) return Math.round(n / 1000 * 1000) / 1000;
+        return n;
+      }
+      function loadSettings() {
+        try { return JSON.parse(localStorage.getItem("apde.static.settings")) || defaultSettings; }
+        catch { return defaultSettings; }
+      }
+      function saveAll() {
+        localStorage.setItem("apde.static.products", JSON.stringify(state.products));
+        localStorage.setItem("apde.static.batches", JSON.stringify(state.batches));
+        localStorage.setItem("apde.static.settings", JSON.stringify(state.settings));
+      }
+      function loadAll() {
+        try {
+          state.products = JSON.parse(localStorage.getItem("apde.static.products")) || [];
+          state.batches = JSON.parse(localStorage.getItem("apde.static.batches")) || [];
+        } catch {}
+        state.products = state.products.map(product => {
+          const repaired = repairProductUrl(product);
+          return { ...repaired, score: scoreProduct(repaired) };
+        });
+        if (!state.products.length) {
+          state.products = samples.map(p => ({ ...p, score: scoreProduct(p) }));
+          state.batches = [{ id: "sample", file_name: "内置模拟产品数据", file_type: "sample", row_count: 5, success_count: 5, failed_count: 0, column_mapping: {}, created_at: new Date().toISOString() }];
+          saveAll();
+        }
+      }
+      function repairProductUrl(p) {
+        const raw = p.raw_data || {};
+        const importedUrl = [
+          p.product_url,
+          raw["商品详情页链接"],
+          raw["商品链接"],
+          raw["链接"],
+          raw["URL"],
+          raw["Product URL"]
+        ].map(v => String(v || "").trim()).find(v => /^https?:\/\//i.test(v));
+        const names = extractProductNames(p.title, p.category, p.keyword);
+        const next = { ...p, asin: cleanAsin(p.asin) || p.asin, product_url: importedUrl || p.product_url || "", extracted_cn_name: isGenericCnName(p.extracted_cn_name) ? names.cn : (p.extracted_cn_name || names.cn), extracted_en_name: p.extracted_en_name || names.en };
+        return { ...next, delist_risk: p.delist_risk || detectDelistRisk(next), delist_risk_reason: p.delist_risk_reason || delistRiskReason(next) };
+      }
+      function makeProduct(input, batchId) {
+        const now = new Date().toISOString();
+        const names = extractProductNames(input.title, input.category, input.keyword);
+        const product = { id: id(), import_batch_id: batchId, created_at: now, updated_at: now, ...input, extracted_cn_name: names.cn, extracted_en_name: names.en };
+        return { ...product, delist_risk: detectDelistRisk(product), delist_risk_reason: delistRiskReason(product) };
+      }
+      function productTextBlob(p) {
+        return `${p.title || ""} ${p.category || ""} ${p.keyword || ""} ${p.product_url || ""} ${JSON.stringify(p.raw_data || {})}`.toLowerCase();
+      }
+      function detectDelistRisk(p) {
+        if (p.delist_risk === true) return true;
+        const blob = productTextBlob(p);
+        return /已下架|下架|停售|不可售|搜索不到|不存在|页面不存在|无结果|已删除|currently unavailable|unavailable|not found|page not found|404|no results|suppressed|inactive|removed|deleted/.test(blob);
+      }
+      function delistRiskReason(p) {
+        if (p.delist_risk_reason) return p.delist_risk_reason;
+        const blob = productTextBlob(p);
+        if (/已下架|下架|停售|不可售|已删除/.test(blob)) return "导入数据或备注中出现下架/不可售相关信息";
+        if (/搜索不到|不存在|页面不存在|无结果/.test(blob)) return "导入数据或备注中出现搜索不到/页面不存在相关信息";
+        if (/currently unavailable|unavailable|not found|page not found|404|no results|suppressed|inactive|removed|deleted/.test(blob)) return "导入数据中出现 unavailable / not found / removed 等平台可见性风险词";
+        if (p.delist_risk) return "人工标记为下架或搜索不到风险";
+        return "";
+      }
+      function delistBadge(p) {
+        return detectDelistRisk(p) ? `<span class="delist-risk" title="${esc(delistRiskReason(p))}">下架风险</span>` : "";
+      }
+      function toggleDelistRisk(pid) {
+        state.products = state.products.map(p => {
+          if (p.id !== pid) return p;
+          const nextRisk = !detectDelistRisk(p);
+          return { ...p, delist_risk: nextRisk, delist_risk_reason: nextRisk ? "人工标记：已下架或平台搜索不到" : "" };
+        });
+        if (state.selectedProduct?.id === pid) state.selectedProduct = state.products.find(p => p.id === pid);
+        saveAll();
+        render();
+      }
+      function extractProductNames(title, category = "", keyword = "") {
+        const rawTitle = String(title || "");
+        const rawKeyword = String(keyword || "");
+        const rawCategory = String(category || "");
+        const dictionary = [
+          ["tibetan singing bowl", "西藏颂钵"], ["singing bowl", "颂钵"], ["meditation device", "冥想疗愈仪"],
+          ["sound machine", "助眠白噪音机"], ["white noise", "白噪音机"], ["essential oil diffuser", "香薰扩香机"],
+          ["humidifier", "加湿器"], ["stress relief ball", "减压球"], ["stress relief", "减压产品"],
+          ["sensory toy", "感统玩具"], ["fidget toy", "解压玩具"], ["weighted blanket", "重力毯"],
+          ["drawer organizer", "抽屉收纳盒"], ["desk organizer", "桌面收纳架"], ["makeup organizer", "化妆品收纳盒"],
+          ["storage basket", "收纳篮"], ["storage box", "收纳盒"], ["storage bin", "收纳箱"],
+          ["shoe rack", "鞋架"], ["spice rack", "调料架"], ["dish rack", "沥水架"], ["drying rack", "晾晒架"],
+          ["cable clips", "理线夹"], ["cable organizer", "理线器"], ["cord organizer", "电线收纳器"],
+          ["phone holder", "手机支架"], ["tablet stand", "平板支架"], ["laptop stand", "笔记本支架"],
+          ["lick mat", "宠物舔食垫"], ["slow feeder", "宠物慢食碗"], ["dog harness", "狗狗胸背带"],
+          ["dog leash", "狗牵引绳"], ["cat toy", "猫玩具"], ["pet brush", "宠物梳毛刷"], ["pet bed", "宠物窝"],
+          ["litter mat", "猫砂垫"], ["poop bag", "宠物拾便袋"], ["pet bowl", "宠物碗"],
+          ["cleaning brush", "清洁刷"], ["scrub brush", "刷洗刷"], ["lint roller", "粘毛滚筒"], ["mop", "拖把"],
+          ["vacuum sealer", "真空封口机"], ["food storage container", "食品保鲜盒"], ["water bottle", "水杯"],
+          ["lunch box", "饭盒"], ["ice cube tray", "冰格模具"], ["cutting board", "砧板"],
+          ["desk lamp", "桌面台灯"], ["night light", "小夜灯"], ["led light", "LED灯"], ["plant light", "植物补光灯"],
+          ["travel bag", "旅行包"], ["toiletry bag", "洗漱包"], ["storage bag", "收纳袋"], ["car organizer", "车载收纳器"],
+          ["organizer", "收纳器"], ["holder", "支架"], ["stand", "支架"], ["case", "保护壳"], ["bag", "包袋"],
+          ["mat", "垫子"], ["bowl", "碗"], ["tray", "托盘"], ["rack", "架子"], ["brush", "刷子"], ["tool", "工具"]
+        ];
+        const modifierRules = [
+          [/portable|travel|foldable|collapsible/i, "便携"],
+          [/electronic|electric|rechargeable|usb|battery powered/i, "电子"],
+          [/automatic|auto/i, "自动"],
+          [/silicone/i, "硅胶"],
+          [/wood|wooden|bamboo/i, "木质"],
+          [/stainless steel|metal/i, "金属"],
+          [/waterproof/i, "防水"],
+          [/adjustable/i, "可调节"],
+          [/wall mounted|wall mount/i, "壁挂式"],
+          [/desktop|desk/i, "桌面"],
+          [/car|vehicle/i, "车载"],
+          [/dog/i, "狗狗"],
+          [/cat/i, "猫咪"],
+          [/baby|kids|children/i, "儿童"],
+          [/yoga|meditation|healing|relaxation|reiki/i, "冥想疗愈"]
+        ];
+        const noise = new Set(["portable","electronic","auto","automatic","manual","mode","vibration","timer","usb","rechargeable","best","gift","choice","new","release","with","for","and","the","a","an","of","in","on","set","pack","pcs","piece","pieces","black","white","blue","red","green","large","small","hz","inch","inches","cm","mm","kilograms","pounds","brand","model","color","material","plastic","silicone","wooden","stainless","steel"]);
+        const source = `${rawKeyword} ${rawTitle} ${rawCategory}`.toLowerCase();
+        const matched = dictionary.filter(([en]) => source.includes(en)).sort((a, b) => b[0].length - a[0].length);
+        let en = matched[0]?.[0] || "";
+        if (!en) {
+          const words = rawTitle
+            .replace(/\([^)]*\)/g, " ")
+            .replace(/[0-9]+([.,][0-9]+)?\s*(hz|khz|cm|mm|inch|inches|lb|lbs|pounds|kg|g)\b/gi, " ")
+            .replace(/[^a-zA-Z\s-]/g, " ")
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(word => word.length > 2 && !noise.has(word))
+            .slice(0, 4);
+          en = words.join(" ") || String(rawKeyword || rawCategory || rawTitle).slice(0, 48);
+        }
+        let cn = matched[0]?.[1] || "";
+        if (!cn) {
+          const bag = `${rawCategory} ${source}`.toLowerCase();
+          const fallbackWords = en.split(/\s+/).slice(-2).join(" ");
+          if (/pet|dog|cat|宠物/.test(bag)) cn = `${fallbackProductCn(fallbackWords)}宠物用品`;
+          else if (/home|kitchen|家居|厨房/.test(bag)) cn = `${fallbackProductCn(fallbackWords)}家居小工具`;
+          else if (/office|desk|办公/.test(bag)) cn = `${fallbackProductCn(fallbackWords)}办公小工具`;
+          else if (/meditation|yoga|healing|wellness|疗愈|冥想/.test(bag)) cn = `${fallbackProductCn(fallbackWords)}疗愈工具`;
+          else cn = `${fallbackProductCn(fallbackWords)}选品候选`;
+        }
+        const modifiers = [...new Set(modifierRules.filter(([rule]) => rule.test(`${rawTitle} ${rawKeyword}`)).map(([, word]) => word))];
+        if (modifiers.length && !modifiers.some(word => cn.includes(word))) cn = `${modifiers.slice(0, 2).join("")}${cn}`;
+        return { cn, en: titleCase(en) };
+      }
+      function fallbackProductCn(text) {
+        const map = { organizer: "收纳", holder: "支架", stand: "支架", mat: "垫", bowl: "碗", rack: "架", brush: "刷", tray: "托盘", bag: "包", box: "盒", clips: "夹", clip: "夹", toy: "玩具", device: "仪器", machine: "机器", container: "容器", light: "灯", lamp: "灯" };
+        const words = String(text || "").toLowerCase().split(/\s+/).filter(Boolean);
+        const translated = words.map(w => map[w]).filter(Boolean).join("");
+        return translated || "";
+      }
+      function isGenericCnName(name) {
+        return !name || ["宠物用品", "家居用品", "办公用品", "疗愈用品", "待人工命名产品", "收纳用品", "桌面用品", "狗用品", "猫用品"].includes(String(name));
+      }
+      function titleCase(text) {
+        return String(text || "").replace(/\w\S*/g, word => word[0].toUpperCase() + word.slice(1).toLowerCase());
+      }
+      function scoreProduct(p) {
+        const s = state?.settings || defaultSettings;
+        const text = `${p.title} ${p.category} ${p.keyword} ${p.dimensions}`.toLowerCase();
+        const risks = [];
+        const warnings = [];
+        if (p.price == null) warnings.push("缺少售价");
+        else if (p.price < s.minPrice || p.price > s.maxPrice) warnings.push(`售价不在 $${s.minPrice}-${s.maxPrice} 区间`);
+        if (p.review_count == null) warnings.push("缺少评论数");
+        else if (p.review_count < s.minReviewCount || p.review_count > s.maxReviewCount) warnings.push(`评论数不在 ${s.minReviewCount}-${s.maxReviewCount} 区间`);
+        if (p.rating != null && p.rating < s.minRating) warnings.push(`评分低于 ${s.minRating}`);
+        if (p.weight != null && p.weight > s.maxWeightKg) warnings.push(`重量超过 ${s.maxWeightKg}kg`);
+        if (p.monthly_sales == null) warnings.push("缺少月销量，无法进入 A/B/C 推荐等级");
+        if (p.sales_rank == null) warnings.push("缺少大类排名，无法进入 A/B 推荐等级");
+        if (/oversize|超大|大件|large/.test(text)) risks.push("疑似大件或 Oversize");
+        s.dangerousKeywords.forEach(k => { if (k && text.includes(k.toLowerCase())) risks.push(`命中高风险关键词：${k}`); });
+        const reviews = p.review_count ?? 300, sellers = p.seller_count ?? 8, rank = p.sales_rank ?? 50000;
+        const competition = clamp(((reviews < 50 ? .45 : reviews <= 800 ? 1 - Math.abs(reviews - 250) / 900 : .25) * .45 + (sellers <= 3 ? .95 : sellers <= 10 ? .8 : sellers <= 20 ? .55 : .25) * .4 + (rank < 5000 ? .55 : rank < 60000 ? .9 : .65) * .15) * s.competitionWeight, 0, s.competitionWeight);
+        const priceFactor = p.price >= 35 && p.price <= 60 ? 1 : p.price >= 20 && p.price <= 80 ? .82 : p.price > 80 ? .55 : .35;
+        const weightFactor = (p.weight ?? .7) <= .5 ? 1 : (p.weight ?? .7) <= 1 ? .82 : (p.weight ?? .7) <= 2 ? .45 : .2;
+        const profit = (priceFactor * .7 + weightFactor * .3) * s.profitWeight;
+        const reviewFactor = reviews >= 80 && reviews <= 500 ? .95 : reviews > 500 && reviews <= 800 ? .75 : reviews >= 50 ? .65 : .35;
+        const ratingFactor = (p.rating ?? 4.5) < 4.2 ? .65 : (p.rating ?? 4.5) < 4.5 ? 1 : .7;
+        const diff = (reviewFactor * .65 + ratingFactor * .35) * s.differentiationWeight;
+        let devFactor = .65;
+        if (/home|kitchen|pet|office|wellness|家居|厨房|宠物|办公|收纳|疗愈/.test(text)) devFactor += .22;
+        if (/app|wifi|bluetooth|smart|chip|medical|food|drug|battery|智能|蓝牙|芯片|医疗|食品|药品|电池/.test(text)) devFactor -= .42;
+        const dev = clamp(devFactor * s.developmentWeight, 0, s.developmentWeight);
+        const total = round(clamp(competition + profit + diff + dev - (risks.length ? Math.min(18, risks.length * 8) : 0), 0, 100));
+        const grade = gradeByScoreSalesAndRank(total, p.monthly_sales, p.sales_rank, warnings);
+        return {
+          competition_score: round(competition), profit_score: round(profit), differentiation_score: round(diff),
+          development_score: round(dev), total_score: total, grade, hard_filter_passed: !risks.length,
+          recommend_reason: [
+            p.price >= 20 && p.price <= 80 ? "售价处于精品开发常用区间" : "",
+            p.review_count >= 50 && p.review_count <= 800 ? "评论量显示有需求且竞争未完全固化" : "",
+            p.rating < 4.5 ? "评分仍有改良空间，可继续拆解差评" : "",
+            p.weight <= .5 ? "重量较轻，物流友好" : ""
+          ].filter(Boolean).join("；") || "数据不足，建议补充字段后复评",
+          risk_reason: risks.concat(warnings).join("；") || "未发现明显硬过滤风险",
+          development_suggestion: diff > 22 ? "优先分析差评，寻找材质、尺寸、套装、说明书或包装升级点。" : "先验证需求稳定性，再判断是否值得进入打样。",
+          ai_analysis: ""
+        };
+      }
+      function gradeByScoreSalesAndRank(total, monthlySales, salesRank, warnings = []) {
+        const sales = Number(monthlySales || 0);
+        const rank = Number(salesRank || 0);
+        if (total >= 85 && sales > 600 && rank > 0 && rank <= 10000) return "A";
+        if (total >= 85 && sales <= 600) warnings.push(`总分达到 A 级，但月销量 ${sales || "缺失"} 未超过 600，不能判为 A`);
+        if (total >= 85 && sales > 600 && !(rank > 0 && rank <= 10000)) warnings.push(`总分和月销量达到 A 级，但大类排名 ${rank || "缺失"} 不在 10000 以内，不能判为 A`);
+        if (total >= 70 && sales > 300 && rank >= 10001 && rank <= 20000) return "B";
+        if (total >= 70 && sales <= 300) warnings.push(`总分达到 B 级，但月销量 ${sales || "缺失"} 未超过 300，不能判为 B`);
+        if (total >= 70 && sales > 300 && !(rank >= 10001 && rank <= 20000)) warnings.push(`总分和月销量达到 B 级，但大类排名 ${rank || "缺失"} 不在 10001-20000，不能判为 B`);
+        if (total >= 60 && sales > 100) return "C";
+        if (total >= 60 && sales <= 100) warnings.push(`总分达到 C 级，但月销量 ${sales || "缺失"} 未超过 100，不能判为 C`);
+        return "D";
+      }
+      function scoringStandardHtml() {
+        return `<div class="card pad section">
+          <h2>评分标准</h2>
+          <p>总分由四项组成：竞争度 25 分、利润空间 25 分、差异化空间 30 分、开发难度 20 分，满分 100 分。</p>
+          <p><b>A 级：</b>总分 ≥85、月销量 &gt;600 单，且大类排名 ≤10000，强烈推荐研究。</p>
+          <p><b>B 级：</b>总分 ≥70、月销量 &gt;300 单，且大类排名在 10001-20000，值得关注。</p>
+          <p><b>C 级：</b>总分 ≥60 且月销量 &gt;100 单，可观察。</p>
+          <p><b>D 级：</b>总分不足、月销量不足，或存在明显风险，不推荐优先开发。</p>
+          <p>说明：如果总分达到某等级，但月销量或大类排名没有达到该等级门槛，会自动降到符合条件的等级，并在风险/AI 分析里说明。</p>
+        </div>`;
+      }
+      function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
+      function round(v) { return Math.round(v * 10) / 10; }
+      function autoMap(headers) {
+        const map = {};
+        Object.keys(fields).forEach(f => {
+          const list = aliases[f].map(norm);
+          const hit = headers.find(h => list.includes(norm(h)));
+          if (hit) map[f] = hit;
+        });
+        return map;
+      }
+      function mapRow(row, mapping) {
+        const get = f => row[mapping[f]];
+        return {
+          asin: String(get("asin") ?? "").trim(), title: String(get("title") ?? "").trim(),
+          category: String(get("category") ?? "").trim(), price: num(get("price")), rating: num(get("rating")),
+          review_count: num(get("review_count")), seller_count: num(get("seller_count")),
+          monthly_sales: num(get("monthly_sales")), monthly_revenue: num(get("monthly_revenue")),
+          sales_rank: num(get("sales_rank")), weight: kg(get("weight")),
+          dimensions: String(get("dimensions") ?? "").trim(), product_url: String(get("product_url") ?? "").trim(),
+          keyword: String(get("keyword") ?? "").trim(), raw_data: row
+        };
+      }
+      function esc(v) { return String(v ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])); }
+      function grade(g) { return `<span class="grade ${g}">${g}</span>`; }
+      function productLink(p) {
+        const asin = cleanAsin(p.asin);
+        const raw = p.raw_data || {};
+        const importedUrl = [
+          p.product_url,
+          raw["商品详情页链接"],
+          raw["商品链接"],
+          raw["链接"],
+          raw["URL"],
+          raw["Product URL"]
+        ].map(v => String(v || "").trim()).find(v => /^https?:\/\//i.test(v));
+        if (importedUrl) return importedUrl;
+        return asin ? `https://www.amazon.com/s?k=${encodeURIComponent(asin)}` : "";
+      }
+      function cleanAsin(value) {
+        const text = String(value || "").trim().toUpperCase();
+        const match = text.match(/B0[A-Z0-9]{8}|[A-Z0-9]{10}/);
+        return match ? match[0] : text.replace(/[^A-Z0-9]/g, "");
+      }
+      function asinLink(p) {
+        const url = productLink(p);
+        const asin = esc(cleanAsin(p.asin) || p.asin || "-");
+        if (!url) return `<span class="muted">${asin}</span>`;
+        return `<a class="asin-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" title="打开 Amazon 商品页或 ASIN 搜索页">${asin}</a>`;
+      }
+      function setView(view) {
+        state.view = view; state.selectedProduct = null; state.gradeFocus = null;
+        document.querySelectorAll("nav button").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+        render();
+      }
+      document.querySelectorAll("nav button").forEach(b => b.onclick = () => setView(b.dataset.view));
+
+      function render() {
+        const app = document.getElementById("app");
+        const missingXlsx = typeof XLSX === "undefined";
+        if (missingXlsx) {
+          app.innerHTML = `<div class="banner"><b>Excel 解析库未加载。</b><br>请确认同级目录存在 <code>vendor/xlsx.full.min.js</code>。当前网站文件夹应完整保留为 <code>standalone-app</code>。</div>`;
+          return;
+        }
+        if (state.selectedProduct) return renderDetail(app, state.selectedProduct);
+        if (state.view === "grade") return renderGradeDetail(app, state.gradeFocus);
+        if (state.view === "dashboard") return renderDashboard(app);
+        if (state.view === "import") return renderImport(app);
+        if (state.view === "products") return renderProducts(app);
+        if (state.view === "settings") return renderSettings(app);
+      }
+      function renderDashboard(app) {
+        const top = [...state.products].sort((a,b) => b.score.total_score - a.score.total_score).slice(0,8);
+        const gradeMeta = {
+          A: { title: "A 级产品", desc: "强烈推荐研究：总分 ≥85、月销量 >600 单，且大类排名 ≤10000。" },
+          B: { title: "B 级产品", desc: "值得关注：总分 ≥70、月销量 >300 单，且大类排名 10001-20000。" },
+          C: { title: "C 级产品", desc: "可观察：总分 ≥60 且月销量 >100 单，适合保留跟踪。" }
+        };
+        app.innerHTML = `
+          <h1>Dashboard</h1><p>从导入数据中快速识别值得继续研究的候选产品。</p>
+          <div class="grid stats">
+            ${["产品总数","A级产品数量","B级产品数量","C级产品数量"].map((l,i) => `<div class="card stat pad"><div class="label">${l}</div><div class="value">${i===0 ? state.products.length : state.products.filter(p=>p.score.grade==="ABC"[i-1]).length}</div></div>`).join("")}
+          </div>
+          <div class="grid grade-board">
+            ${["A","B","C"].map(g => {
+              const rows = state.products.filter(p => p.score.grade === g);
+              const buckets = gradeBuckets(rows);
+              return `<div class="card pad grade-card" onclick="openGrade('${g}')">
+                <div class="grade-title"><h2>${gradeMeta[g].title}</h2>${grade(g)}</div>
+                <div class="grade-count">${rows.length}</div>
+                <p>${gradeMeta[g].desc}</p>
+                <div class="chips">${buckets.slice(0,3).map(b => `<span class="chip">${esc(b.name)} ${b.rows.length}</span>`).join("") || `<span class="chip">暂无产品</span>`}</div>
+              </div>`;
+            }).join("")}
+          </div>
+          ${scoringStandardHtml()}
+          <div class="split section">
+            <div class="card"><div class="bar"><h2>Top 推荐产品</h2><button class="btn" onclick="setView('import')">导入产品数据</button></div>${table(top)}</div>
+            <div class="card"><div class="bar"><h2>最近导入批次</h2></div>${state.batches.slice(0,8).map(b=>`<div class="pad" style="border-bottom:1px solid var(--line)"><b>${esc(b.file_name)}</b><p>成功 ${b.success_count} / 失败 ${b.failed_count} / 总行数 ${b.row_count}</p><span class="muted">${new Date(b.created_at).toLocaleString()}</span></div>`).join("")}</div>
+          </div>`;
+      }
+      function openGrade(g) { state.view = "grade"; state.gradeFocus = g; state.selectedProduct = null; render(); }
+      function gradeBuckets(rows) {
+        const definitions = [
+          { name: "轻小件优先", test: p => (p.weight ?? 99) <= .5 },
+          { name: "标准件可做", test: p => (p.weight ?? 99) > .5 && (p.weight ?? 99) <= 1 },
+          { name: "中等评论机会", test: p => (p.review_count ?? 0) >= 50 && (p.review_count ?? 0) <= 500 },
+          { name: "高评分稳定款", test: p => (p.rating ?? 0) >= 4.5 },
+          { name: "有改良空间", test: p => (p.rating ?? 5) < 4.5 && (p.review_count ?? 0) >= 50 },
+          { name: "低卖家竞争", test: p => (p.seller_count ?? 99) <= 5 },
+          { name: "风险需复核", test: p => !p.score.hard_filter_passed || /风险|超过|不在|低于|缺少/.test(p.score.risk_reason || "") }
+        ];
+        const used = new Set();
+        const buckets = definitions.map(d => {
+          const matched = rows.filter(p => d.test(p));
+          matched.forEach(p => used.add(p.id));
+          return { name: d.name, rows: matched };
+        }).filter(b => b.rows.length);
+        const other = rows.filter(p => !used.has(p.id));
+        if (other.length) buckets.push({ name: "其他同级产品", rows: other });
+        return buckets;
+      }
+      function gradeSummary(g, rows) {
+        const avg = key => rows.length ? round(rows.reduce((sum,p)=>sum+(p[key] ?? 0),0)/rows.length) : 0;
+        const avgScore = rows.length ? round(rows.reduce((sum,p)=>sum+p.score.total_score,0)/rows.length) : 0;
+        const light = rows.filter(p => (p.weight ?? 99) <= 1).length;
+        const risk = rows.filter(p => !p.score.hard_filter_passed).length;
+        const meta = {
+          A: "A 级通常代表总分高、月销量超过 600 单，且大类排名进入 10000 以内，说明需求基础、利润空间和开发可行性同时较好。",
+          B: "B 级说明总分达到关注线、月销量超过 300 单，且大类排名处在 10001-20000，有选品机会，但至少一个关键维度仍需复核。",
+          C: "C 级说明总分和月销量超过最低观察线，适合保留跟踪，但当前不建议作为最高优先级开发。"
+        };
+        return `${meta[g]} 当前共有 ${rows.length} 个产品，平均总分 ${avgScore}，平均售价 $${avg("price")}，平均评论数 ${avg("review_count")}。其中 ${light} 个重量不超过 1kg，${risk} 个存在硬过滤或风险提示。`;
+      }
+      function renderGradeDetail(app, g) {
+        const rows = state.products.filter(p => p.score.grade === g).sort((a,b)=>b.score.total_score-a.score.total_score);
+        const buckets = gradeBuckets(rows);
+        app.innerHTML = `
+          <button class="btn secondary" onclick="setView('dashboard')">返回看板</button>
+          <div class="section"><span>${grade(g)}</span><h1 style="margin-top:12px">${g} 级产品细化分类</h1><p>${gradeSummary(g, rows)}</p></div>
+          <div class="card pad section"><h2>AI 分析总览</h2><div class="analysis">${esc(gradeSummary(g, rows))}</div></div>
+          <div class="grid category-grid section">
+            ${buckets.map(bucket => `<div class="card">
+              <div class="bar"><h2>${esc(bucket.name)}</h2><span class="muted">${bucket.rows.length} 个</span></div>
+              <div class="pad"><p>${esc(bucketInsight(g, bucket.name, bucket.rows))}</p></div>
+              ${table(bucket.rows.slice(0, 12))}
+            </div>`).join("") || `<div class="card pad">暂无 ${g} 级产品</div>`}
+          </div>`;
+      }
+      function bucketInsight(g, name, rows) {
+        const top = rows[0];
+        if (!top) return "暂无产品。";
+        return `这个分类中的产品被归为 ${g} 级，主要因为它们共同具备「${name}」特征。代表产品「${top.title}」总分 ${top.score.total_score}，${aiAnalysis(top)}`;
+      }
+      function table(rows) {
+        return `<div style="overflow:auto"><table><thead><tr><th>等级</th><th>产品</th><th>类目</th><th>价格</th><th>评分</th><th>评论</th><th>卖家</th><th>总分</th></tr></thead><tbody>${rows.map(p => { const names = extractProductNames(p.title, p.category, p.keyword); return `<tr class="${detectDelistRisk(p) ? "risk-row" : ""}" onclick="openProduct('${p.id}')" style="cursor:pointer"><td>${grade(p.score.grade)}</td><td><b>${esc(p.title)}</b> ${delistBadge(p)}<br>${asinLink(p)}<div class="name-tags"><span><b>中文名：</b>${esc(p.extracted_cn_name || names.cn)}</span><span><b>英文名：</b>${esc(p.extracted_en_name || names.en)}</span></div></td><td>${esc(p.category)}</td><td>${p.price == null ? "-" : "$"+p.price}</td><td>${p.rating ?? "-"}</td><td>${p.review_count ?? "-"}</td><td>${p.seller_count ?? "-"}</td><td><b>${p.score.total_score}</b></td></tr>`; }).join("")}</tbody></table></div>`;
+      }
+      function openProduct(pid) { state.selectedProduct = state.products.find(p => p.id === pid); render(); }
+      function aiAnalysis(p) {
+        const s = p.score;
+        const strongest = [
+          ["竞争度", s.competition_score, 25],
+          ["利润空间", s.profit_score, 25],
+          ["差异化空间", s.differentiation_score, 30],
+          ["开发难度", s.development_score, 20]
+        ].sort((a,b) => (b[1]/b[2]) - (a[1]/a[2]))[0];
+        const weakest = [
+          ["竞争度", s.competition_score, 25],
+          ["利润空间", s.profit_score, 25],
+          ["差异化空间", s.differentiation_score, 30],
+          ["开发难度", s.development_score, 20]
+        ].sort((a,b) => (a[1]/a[2]) - (b[1]/b[2]))[0];
+        const gradeText = {
+          A: "综合得分达到强推荐区间，说明这款产品在需求、利润和开发可行性之间比较均衡。",
+          B: "综合得分处在值得关注区间，说明它有选品机会，但还需要进一步验证短板。",
+          C: "综合得分处在观察区间，说明它暂时不适合作为最高优先级开发对象。",
+          D: "综合得分偏低，当前不建议投入开发资源。"
+        }[s.grade];
+        const facts = [
+          p.price != null ? `售价 $${p.price}` : "售价缺失",
+          p.review_count != null ? `评论数 ${p.review_count}` : "评论数缺失",
+          p.rating != null ? `评分 ${p.rating}` : "评分缺失",
+          p.seller_count != null ? `卖家数 ${p.seller_count}` : "卖家数缺失",
+          p.weight != null ? `重量 ${p.weight}kg` : "重量缺失",
+          p.monthly_sales != null ? `月销量 ${p.monthly_sales}` : "月销量缺失",
+          p.sales_rank != null ? `大类排名 ${p.sales_rank}` : "大类排名缺失"
+        ].join("，");
+        const sales = Number(p.monthly_sales || 0);
+        const rank = Number(p.sales_rank || 0);
+        const salesRule = s.grade === "A" ? "月销量超过 600 单且大类排名在 10000 以内，满足 A 级门槛" : s.grade === "B" ? "月销量超过 300 单且大类排名在 10001-20000，满足 B 级门槛" : s.grade === "C" ? "月销量超过 100 单，但总分、销量或大类排名没有达到 A/B 门槛，归入 C 级观察" : "总分、月销量或大类排名没有达到 C 级以上门槛";
+        const platformRisk = detectDelistRisk(p) ? `另外，这款产品被标记为下架/搜索不到风险，原因是：${delistRiskReason(p)}。该风险会影响后续跟踪价值，建议先确认商品页是否仍可访问。` : "未发现明显下架或搜索不到风险。";
+        return `${gradeText} 关键数据为：${facts}。销量和排名判断：${salesRule}（当前月销量 ${sales || "缺失"} 单，大类排名 ${rank || "缺失"}）。最高贡献项是${strongest[0]}（${round(strongest[1])}/${strongest[2]}），说明该维度支撑了当前等级；主要拖累项是${weakest[0]}（${round(weakest[1])}/${weakest[2]}），后续调研应优先验证这一点。风险判断：${s.risk_reason}。${platformRisk}`;
+      }
+      function renderImport(app) {
+        const headers = state.parsed?.headers || [];
+        app.innerHTML = `
+          <h1>产品导入</h1><p>支持 CSV 和 Excel。PDF 第一版建议转成 Excel / CSV 后导入。</p>
+          <div class="card pad section">
+            <label class="drop"><b>点击选择 CSV / Excel 文件</b><p>支持卖家精灵中文列名和英文列名，识别不到可手动映射。</p><input id="file" type="file" accept=".csv,.xlsx,.xls"></label>
+            ${state.status ? `<div class="status">${esc(state.status)}</div>` : ""}
+          </div>
+          ${state.parsed ? `<div class="card section"><div class="bar"><h2>字段映射</h2><span class="muted">${state.mapping.asin && state.mapping.title ? "字段映射可用，可直接导入。" : "请至少映射 ASIN 和标题"}</span></div><div class="grid map-grid pad">${Object.keys(fields).map(f => `<label><b>${fields[f]}</b><select data-map="${f}"><option value="">不导入</option>${headers.map(h => `<option value="${esc(h)}" ${state.mapping[f]===h ? "selected" : ""}>${esc(h)}</option>`).join("")}</select></label>`).join("")}</div></div>
+          <div class="card section"><div class="bar"><h2>导入预览</h2><button class="btn" id="doImport" ${state.mapping.asin && state.mapping.title ? "" : "disabled"}>确认导入并评分</button></div>${preview()}</div>` : ""}`;
+        document.getElementById("file").onchange = e => handleFile(e.target.files[0]);
+        document.querySelectorAll("[data-map]").forEach(s => s.onchange = e => { state.mapping[e.target.dataset.map] = e.target.value; render(); });
+        const btn = document.getElementById("doImport");
+        if (btn) btn.onclick = doImport;
+      }
+      function preview() {
+        const rows = state.parsed.rows.slice(0, 8), headers = state.parsed.headers;
+        return `<div style="overflow:auto"><table><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${headers.map(h=>`<td>${esc(r[h])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      }
+      function handleFile(file) {
+        if (!file) return;
+        state.status = "正在解析文件..."; render();
+        const reader = new FileReader();
+        reader.onerror = () => { state.status = "文件读取失败"; render(); };
+        reader.onload = () => {
+          try {
+            let rows = [];
+            const name = file.name.toLowerCase();
+            if (name.endsWith(".csv")) rows = parseCsv(String(reader.result || ""));
+            else if (name.endsWith(".xlsx") || name.endsWith(".xls")) {
+              const wb = XLSX.read(reader.result, { type: "array" });
+              rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: "", raw: false });
+            } else throw new Error("PDF解析失败，请转为Excel或CSV后重新导入");
+            const headers = Object.keys(rows[0] || {});
+            state.parsed = { rows, headers, fileName: file.name };
+            state.mapping = autoMap(headers);
+            state.status = `解析成功，共 ${rows.length} 行。${state.mapping.asin && state.mapping.title ? "已自动识别主要字段。" : "请手动映射 ASIN 和标题。"}`;
+          } catch (err) { state.status = err.message || "文件解析失败"; }
+          render();
+        };
+        if (file.name.toLowerCase().endsWith(".csv")) reader.readAsText(file);
+        else reader.readAsArrayBuffer(file);
+      }
+      function parseCsv(text) {
+        const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
+        const headers = splitCsv(lines[0]);
+        return lines.slice(1).map(line => Object.fromEntries(splitCsv(line).map((v,i) => [headers[i], v])));
+      }
+      function splitCsv(line) {
+        const out = []; let cur = "", q = false;
+        for (let i=0;i<line.length;i++) { const c=line[i]; if (c === '"') q = !q; else if (c === "," && !q) { out.push(cur); cur=""; } else cur += c; }
+        out.push(cur); return out.map(v => v.trim());
+      }
+      function doImport() {
+        const batchId = id(), products = [], failures = [];
+        state.status = "正在导入并计算评分..."; render();
+        setTimeout(() => {
+          state.parsed.rows.forEach((row, i) => {
+            const input = mapRow(row, state.mapping);
+            if (!input.asin || !input.title) failures.push({ row: i + 2, reason: !input.asin ? "缺少 ASIN" : "缺少标题" });
+            else {
+              const p = makeProduct(input, batchId);
+              p.score = scoreProduct(p);
+              products.push(p);
+            }
+          });
+          const asinSet = new Set(products.map(p => p.asin));
+          state.products = products.concat(state.products.filter(p => !asinSet.has(p.asin)));
+          state.batches.unshift({ id: batchId, file_name: state.parsed.fileName, file_type: "import", row_count: state.parsed.rows.length, success_count: products.length, failed_count: failures.length, column_mapping: state.mapping, created_at: new Date().toISOString() });
+          state.status = `导入完成：成功 ${products.length} 行，失败 ${failures.length} 行。`;
+          saveAll(); render();
+        }, 30);
+      }
+      function renderProducts(app) {
+        const f = state.filters;
+        let rows = state.products.filter(p => {
+          const q = (f.q || "").toLowerCase();
+          if (q && !(`${p.asin} ${p.title} ${p.keyword}`.toLowerCase().includes(q))) return false;
+          if (f.grade && p.score.grade !== f.grade) return false;
+          if (f.minPrice && (p.price ?? 0) < Number(f.minPrice)) return false;
+          if (f.maxPrice && (p.price ?? 0) > Number(f.maxPrice)) return false;
+          if (f.minReviews && (p.review_count ?? 0) < Number(f.minReviews)) return false;
+          if (f.minRating && (p.rating ?? 0) < Number(f.minRating)) return false;
+          return true;
+        }).sort((a,b)=>b.score.total_score-a.score.total_score);
+        app.innerHTML = `<h1>产品列表</h1><p>共 ${rows.length} 个产品，按总分从高到低排序。</p>
+          <div class="card pad section"><div class="grid filters">
+            <input data-filter="q" placeholder="搜索 ASIN / 标题 / 关键词" value="${esc(f.q||"")}">
+            <select data-filter="grade"><option value="">全部等级</option>${["A","B","C","D"].map(g=>`<option ${f.grade===g?"selected":""}>${g}</option>`).join("")}</select>
+            <input data-filter="minPrice" type="number" placeholder="最低价格" value="${esc(f.minPrice||"")}">
+            <input data-filter="maxPrice" type="number" placeholder="最高价格" value="${esc(f.maxPrice||"")}">
+            <input data-filter="minRating" type="number" step="0.1" placeholder="最低评分" value="${esc(f.minRating||"")}">
+          </div><div class="grid" style="grid-template-columns:1fr 1fr; margin-top:12px"><input data-filter="minReviews" type="number" placeholder="最低评论数" value="${esc(f.minReviews||"")}"><button class="btn secondary" id="resetFilters">重置筛选</button></div></div>
+          <div class="card section">${table(rows)}</div>`;
+        document.querySelectorAll("[data-filter]").forEach(el => el.oninput = e => { state.filters[e.target.dataset.filter] = e.target.value; renderProducts(app); });
+        document.getElementById("resetFilters").onclick = () => { state.filters = {}; render(); };
+      }
+      function renderDetail(app, p) {
+        const s = p.score;
+        const url = productLink(p);
+        const names = extractProductNames(p.title, p.category, p.keyword);
+        app.innerHTML = `<button class="btn secondary" onclick="state.selectedProduct=null;render()">返回列表</button><div class="section"><span>${grade(s.grade)}</span> <b>总分 ${s.total_score}</b> ${delistBadge(p)}<h1 style="margin-top:12px">${esc(p.title)}</h1><p>${asinLink(p)}${url ? ` <a class="btn secondary" style="margin-left:10px; padding:7px 10px" href="${esc(url)}" target="_blank" rel="noopener noreferrer">打开 Amazon 链接</a>` : ""} <button class="btn secondary" style="margin-left:10px; padding:7px 10px" onclick="toggleDelistRisk('${p.id}')">${detectDelistRisk(p) ? "取消下架风险" : "标记下架风险"}</button></p>${detectDelistRisk(p) ? `<div class="banner" style="background:#fff1f2;border-color:#fecdd3;color:#9f1239"><b>下架或搜索不到风险：</b>${esc(delistRiskReason(p))}</div>` : ""}</div>
+          <div class="split section"><div class="card pad"><h2>产品名称提取</h2><p><b>中文名：</b>${esc(p.extracted_cn_name || names.cn)}</p><p><b>英文名：</b>${esc(p.extracted_en_name || names.en)}</p><h2>基础数据</h2>${Object.entries({类目:p.category,价格:p.price==null?"-":"$"+p.price,评分:p.rating,评论数:p.review_count,卖家数:p.seller_count,月销量:p.monthly_sales,月销售额:p.monthly_revenue,BSR:p.sales_rank,重量:p.weight==null?"-":p.weight+"kg",尺寸:p.dimensions,关键词:p.keyword}).map(([k,v])=>`<p><b>${k}：</b>${esc(v)}</p>`).join("")}<h2>原始导入字段</h2><pre>${esc(JSON.stringify(p.raw_data,null,2))}</pre></div>
+          <div class="card pad"><h2>AI 分析：为什么是 ${s.grade} 级</h2><div class="analysis">${esc(aiAnalysis(p))}</div><h2 style="margin-top:20px">硬过滤结果</h2><p><b>${s.hard_filter_passed ? "通过硬过滤" : "未通过硬过滤"}</b></p><p>${esc(s.risk_reason)}</p><h2>四项评分</h2>${scoreBar("竞争度评分",s.competition_score,25)}${scoreBar("利润空间评分",s.profit_score,25)}${scoreBar("差异化空间评分",s.differentiation_score,30)}${scoreBar("开发难度评分",s.development_score,20)}<h2 style="margin-top:20px">推荐原因</h2><p>${esc(s.recommend_reason)}</p><h2>开发建议</h2><p>${esc(s.development_suggestion)}</p></div></div>${scoringStandardHtml()}`;
+      }
+      function scoreBar(label, value, max) { return `<div class="score-row"><div class="score-head"><span>${label}</span><b>${value} / ${max}</b></div><div class="track"><div class="fill" style="width:${Math.round(value/max*100)}%"></div></div></div>`; }
+      function renderSettings(app) {
+        const s = state.settings;
+        app.innerHTML = `<h1>评分规则设置</h1><p>保存到本地浏览器。</p><div class="card pad section"><div class="grid map-grid">${["minPrice","maxPrice","minReviewCount","maxReviewCount","minRating","maxWeightKg","competitionWeight","profitWeight","differentiationWeight","developmentWeight"].map(k=>`<label><b>${k}</b><input data-setting="${k}" type="number" step="0.1" value="${s[k]}"></label>`).join("")}</div><label style="display:block;margin-top:14px"><b>危险品关键词黑名单</b><textarea data-setting-list rows="8">${s.dangerousKeywords.join("\\n")}</textarea></label><button class="btn section" id="saveSettings">保存规则</button></div>`;
+        document.querySelectorAll("[data-setting]").forEach(el => el.oninput = e => s[e.target.dataset.setting] = Number(e.target.value));
+        document.querySelector("[data-setting-list]").oninput = e => s.dangerousKeywords = e.target.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+        document.getElementById("saveSettings").onclick = () => { state.products = state.products.map(p => ({...p, score: scoreProduct(p)})); saveAll(); alert("已保存"); };
+      }
+      loadAll();
+      render();
+    </script>
+  </body>
+</html>
